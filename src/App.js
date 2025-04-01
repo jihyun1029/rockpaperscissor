@@ -9,7 +9,25 @@ import Box from "./component/Box";
 // 5. 3,4번의 결과를 가지고 누가 이겼는지 승패를 따진다
 // 6. 승패결과에따라 테두리 색이 바뀐다 (이기면-초록, 지면-빨강 비기면-검은색)
 
+const choice = {
+    rock: {
+        name: "Rock",
+        img: "https://image.auction.co.kr/itemimage/28/65/8e/28658ea5e6.jpg"
+    },
+    scissors: {
+        name: "Scissors",
+        img: "https://cdn.imweb.me/thumbnail/20200515/f5f09c900eed0.png"
+    },
+    papper : {
+        name: "Paper",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmFOdojqwgJXPjP-R2APmY8eNY8_XhFteZLw&s"
+    }
+}
 function App() {
+    const play = (userChoice) => {
+        console.log("선택됨!", userChoice);
+    }
+
   return (
       <div>
           <div className="main">
@@ -18,9 +36,9 @@ function App() {
           </div>
 
           <div className="main">
-              <button>가위</button>
-              <button>바위</button>
-              <button>보</button>
+              <button onClick={() => play("scissors")}>가위</button>
+              <button onClick={() => play("rock")}>바위</button>
+              <button onClick={() => play("paper")}>보</button>
           </div>
       </div>
   );
