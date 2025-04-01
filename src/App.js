@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import {useState} from "react";
 import './App.css';
 import Box from "./component/Box";
 
@@ -18,21 +18,23 @@ const choice = {
         name: "Scissors",
         img: "https://cdn.imweb.me/thumbnail/20200515/f5f09c900eed0.png"
     },
-    papper : {
+    paper : {
         name: "Paper",
-        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmFOdojqwgJXPjP-R2APmY8eNY8_XhFteZLw&s"
+        img: "https://static.partyking.org/fit-in/1300x0/products/original/uv-neon-papper-72817-8.jpg"
     }
 }
 function App() {
+    const [userSelect, setUserSelect] = useState(choice.rock);
+
     const play = (userChoice) => {
-        console.log("선택됨!", userChoice);
+        setUserSelect(choice[userChoice])
     }
 
   return (
       <div>
           <div className="main">
-              <Box title="You" />
-              <Box title= "computer" />
+              <Box title="You" item={userSelect}/>
+              {/*<Box title= "computer" />*/}
           </div>
 
           <div className="main">
