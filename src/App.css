@@ -1,5 +1,5 @@
 .box {
-    border: 1px solid #000;
+    border: 5px solid #000;
     width: 500px;
 }
 
@@ -10,4 +10,16 @@
 .main {
     display: flex;
     justify-content: center;
+}
+
+.tie {
+    border: 8px solid green;
+}
+
+.win {
+    border: 8px solid blue;
+}
+
+.lose {
+    border: 8px solid red;
 }

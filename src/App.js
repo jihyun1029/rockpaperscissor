@@ -25,51 +25,41 @@ const choice = {
 }
 
 function App() {
-    const [userSelect, setUserSelect] = useState(choice.rock);
+    const [userSelect, setUserSelect] = useState(null);
     const [computerSelect, setComputerSelect] = useState(null);
-    const [result, setResult] = useState(null);
+    const [result, setResult] = useState({user:null, computer: null});
 
     const play = (userChoice) => {
-        setUserSelect(choice[userChoice]);
-        let computerChoice = randomChoice();
-        setComputerSelect(computerChoice);
-        judgement(choice[userChoice], computerChoice);
-        setResult(judgement(choice[userChoice], computerChoice));
+        let userPick = choice[userChoice];
+        let computerPick = randomChoice();
+        let gameResult = judgement(userPick, computerPick);
+
+        console.log("Game result:", gameResult);
+
+        setUserSelect(userPick);
+        setComputerSelect(computerPick);
+        setResult(gameResult);
     }
 
     const judgement = (user, computer) => {
-        console.log("user", user, "computer", computer);
+        // console.log("user", user, "computer", computer);
 
-        // user == computer tie
-        // user == rock, computer == scissors user 이긴거지
-        // user == "rock", computer == paper user 진거지
-        // user == scissors computer == paper user 이긴거지
-        // user == scissors computer == rock user 진거지
-        // user == paper, computer == rock user 이긴거지
-        // user == paper, computer == scissors user 진거
-
-        /*
-        if(user.name == computer.name) {
-            return "tie"
-        } else if(user.name == "Rock") {
-            if(computer == "Scissors") {
-                return "WIN"
-            } else {
-                return "lose"
-            }
-        }
-        */
-        // 삼항 연산자로 바꾸
         if (user.name == computer.name) {
-            return "tie"
-        } else if (user.name === "Rock") return computer.name === "Scissors" ? "WIN" : "LOSE"
-        else if (user.name === "Scissors") return computer.name === "Paper" ? "WIN" : "LOSE"
-        else if (user.name === "Paper") return computer.name === "Rock" ? "WIN" : "LOSE"
+            return { user: "TIE", computer: "TIE" };
+        } else if (
+            (user.name === "Rock" && computer.name === "Scissors") ||
+            (user.name === "Scissors" && computer.name === "Paper") ||
+            (user.name === "Paper" && computer.name === "Rock")
+        ) {
+            return {user: "WIN", computer: "LOSE"};
+        } else {
+            return {user: "LOSE", computer: "WIN"};
+        }
     }
 
     const randomChoice = () => {
         let itemArray = Object.keys(choice); // 객체에 키값만 뽑아서 array로 만들어주는 함수
-        console.log("item array", itemArray);
+        // console.log("item array", itemArray);
         let randomItem = Math.floor(Math.random() * itemArray.length);
         // console.log("random value", randomItem);
         let final = itemArray[randomItem];
@@ -80,8 +70,8 @@ function App() {
     return (
         <div>
             <div className="main">
-                <Box title="You" item={userSelect} result={result}/>
-                <Box title="computer" item={computerSelect} result={result}/>
+                <Box title="You" item={userSelect} result={result.user}/>
+                <Box title="computer" item={computerSelect} result={result.computer}/>
             </div>
 
             <div className="main">
