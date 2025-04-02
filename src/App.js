@@ -18,32 +18,79 @@ const choice = {
         name: "Scissors",
         img: "https://cdn.imweb.me/thumbnail/20200515/f5f09c900eed0.png"
     },
-    paper : {
+    paper: {
         name: "Paper",
         img: "https://static.partyking.org/fit-in/1300x0/products/original/uv-neon-papper-72817-8.jpg"
     }
 }
+
 function App() {
     const [userSelect, setUserSelect] = useState(choice.rock);
+    const [computerSelect, setComputerSelect] = useState(null);
+    const [result, setResult] = useState(null);
 
     const play = (userChoice) => {
-        setUserSelect(choice[userChoice])
+        setUserSelect(choice[userChoice]);
+        let computerChoice = randomChoice();
+        setComputerSelect(computerChoice);
+        judgement(choice[userChoice], computerChoice);
+        setResult(judgement(choice[userChoice], computerChoice));
     }
 
-  return (
-      <div>
-          <div className="main">
-              <Box title="You" item={userSelect}/>
-              {/*<Box title= "computer" />*/}
-          </div>
+    const judgement = (user, computer) => {
+        console.log("user", user, "computer", computer);
 
-          <div className="main">
-              <button onClick={() => play("scissors")}>가위</button>
-              <button onClick={() => play("rock")}>바위</button>
-              <button onClick={() => play("paper")}>보</button>
-          </div>
-      </div>
-  );
+        // user == computer tie
+        // user == rock, computer == scissors user 이긴거지
+        // user == "rock", computer == paper user 진거지
+        // user == scissors computer == paper user 이긴거지
+        // user == scissors computer == rock user 진거지
+        // user == paper, computer == rock user 이긴거지
+        // user == paper, computer == scissors user 진거
+
+        /*
+        if(user.name == computer.name) {
+            return "tie"
+        } else if(user.name == "Rock") {
+            if(computer == "Scissors") {
+                return "WIN"
+            } else {
+                return "lose"
+            }
+        }
+        */
+        // 삼항 연산자로 바꾸
+        if (user.name == computer.name) {
+            return "tie"
+        } else if (user.name === "Rock") return computer.name === "Scissors" ? "WIN" : "LOSE"
+        else if (user.name === "Scissors") return computer.name === "Paper" ? "WIN" : "LOSE"
+        else if (user.name === "Paper") return computer.name === "Rock" ? "WIN" : "LOSE"
+    }
+
+    const randomChoice = () => {
+        let itemArray = Object.keys(choice); // 객체에 키값만 뽑아서 array로 만들어주는 함수
+        console.log("item array", itemArray);
+        let randomItem = Math.floor(Math.random() * itemArray.length);
+        // console.log("random value", randomItem);
+        let final = itemArray[randomItem];
+        // console.log("final", final);
+        return choice[final];
+    }
+
+    return (
+        <div>
+            <div className="main">
+                <Box title="You" item={userSelect} result={result}/>
+                <Box title="computer" item={computerSelect} result={result}/>
+            </div>
+
+            <div className="main">
+                <button onClick={() => play("scissors")}>✌️</button>
+                <button onClick={() => play("rock")}>✊</button>
+                <button onClick={() => play("paper")}>🖐️</button>
+            </div>
+        </div>
+    );
 }
 
 export default App;
