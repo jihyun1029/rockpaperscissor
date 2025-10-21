@@ -8,7 +8,7 @@ const Box = (props) => {
     return (
         <div className={boxClass}>
             <h1>{props.title}</h1>
-            <img className="item-img" src={props.item ? props.item.img : defaultImage}/>
+            <img className="item-img" src={props.item ? props.item.img : defaultImage} alt="가위 아이콘"/>
             <h2>{props.result}</h2>
         </div>
     );

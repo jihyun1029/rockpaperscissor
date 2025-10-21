@@ -44,7 +44,7 @@ function App() {
     const judgement = (user, computer) => {
         // console.log("user", user, "computer", computer);
 
-        if (user.name == computer.name) {
+        if (user.name === computer.name) {
             return { user: "TIE", computer: "TIE" };
         } else if (
             (user.name === "Rock" && computer.name === "Scissors") ||
